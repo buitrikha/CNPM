@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chi tiết sản phẩm - Shop Online</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>SHOP PTIT</h1>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Trang chủ</a></li>
+                    <li><a href="products.html">Sản phẩm</a></li>
+                    <li><a href="cart.html">Giỏ hàng</a></li>
+                    <li><a href="login.html">Đăng nhập</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="product-detail">
+            <div class="product-images">
+                <img id="mainImage" src="" alt="Ảnh sản phẩm">
+                <div class="thumbnail-images">
+                    <!-- Thumbnails will be loaded here -->
+                </div>
+            </div>
+            <div class="product-info">
+                <h1 id="productName"></h1>
+                <p class="price" id="productPrice"></p>
+                <div class="size-selection">
+                    <h3>Kích cỡ</h3>
+                    <div class="size-options" id="sizeOptions">
+                        <!-- Size options will be loaded here -->
+                    </div>
+                </div>
+                <div class="product-description">
+                    <h3>Mô tả sản phẩm</h3>
+                    <p id="productDescription"></p>
+                </div>
+                <div class="product-details">
+                    <h3>Chi tiết sản phẩm</h3>
+                    <ul id="productDetails">
+                        <!-- Product details will be loaded here -->
+                    </ul>
+                </div>
+                <button onclick="addToCartFromDetail()" class="add-to-cart">Thêm vào giỏ hàng</button>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Shop Online. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html> 

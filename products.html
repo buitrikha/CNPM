@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sản phẩm - Shop Online</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>SHOP PTIT</h1>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Trang chủ</a></li>
+                    <li><a href="products.html">Sản phẩm</a></li>
+                    <li><a href="cart.html">Giỏ hàng</a></li>
+                    <li><a href="login.html">Đăng nhập</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="filter-section">
+            <div class="search-filter">
+                <input type="text" id="productSearch" placeholder="Tìm kiếm sản phẩm...">
+                <button onclick="searchProducts()">Tìm kiếm</button>
+            </div>
+            <div class="category-filter">
+                <h3>Danh mục</h3>
+                <select id="categorySelect" onchange="filterByCategory()">
+                    <option value="all">Tất cả</option>
+                    <option value="Áo">Áo</option>
+                    <option value="Quần">Quần</option>
+                    <option value="Váy">Váy</option>
+                    <option value="Giày">Giày</option>
+                    <option value="Phụ kiện">Phụ kiện</option>
+                </select>
+            </div>
+            <div class="price-filter">
+                <h3>Lọc theo giá</h3>
+                <select id="priceRange" onchange="filterByPrice()">
+                    <option value="all">Tất cả</option>
+                    <option value="0-100000">Dưới 100,000 VNĐ</option>
+                    <option value="100000-300000">100,000 - 300,000 VNĐ</option>
+                    <option value="300000-500000">300,000 - 500,000 VNĐ</option>
+                    <option value="500000+">Trên 500,000 VNĐ</option>
+                </select>
+            </div>
+            <div class="sort-filter">
+                <h3>Sắp xếp</h3>
+                <select id="sortBy" onchange="sortProducts()">
+                    <option value="default">Mặc định</option>
+                    <option value="price-asc">Giá tăng dần</option>
+                    <option value="price-desc">Giá giảm dần</option>
+                    <option value="name-asc">Tên A-Z</option>
+                    <option value="name-desc">Tên Z-A</option>
+                </select>
+            </div>
+        </section>
+
+        <section class="products-section">
+            <h2>Tất cả sản phẩm</h2>
+            <div class="product-grid" id="productGrid">
+                <!-- Products will be loaded here -->
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Shop Online. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html> 
