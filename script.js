@@ -80,27 +80,58 @@ const products = [
     },
     {
         id: 5,
-        name: "Váy liền thân",
-        price: 350000,
-        image: "images/vay-lien-than.jpg",
-        category: "Váy",
-        description: "Váy liền thân dáng suông, thoải mái"
+        name: "Áo hoa",
+        price: 350000 ,
+        image: "images/ao-hoa.png",
+        images: [
+            "images/ao-hoa.png",
+            "images/ao-hoa-1.png",
+            "images/ao-hoa-2.png"
+        ],
+        category: "Áo",
+        description: "Áo Luffy hải tặc",
+        details: [
+            "Chất liệu: Cotton 100%",
+            "Kiểu dáng: Regular fit",
+            "Màu sắc: Hoa hòe",
+            "Xuất xứ: Biển Đông"
+        ],
+        sizes: ["S", "M", "L", "XL", "XXL"]
     },
     {
         id: 6,
-        name: "Túi xách nữ",
+        name: "Túi xách cám cò",
         price: 250000,
-        image: "images/tui-xach-nu.jpg",
+        image: "images/tui-xach.png",
+        images: [
+            "images/tui-xach.png",
+            "images/tui-xach-1.png"
+        ],
         category: "Phụ kiện",
-        description: "Túi xách nữ phong cách thời trang"
+        description: "Túi xách cám cò phong cách thời trang",
+        details: [  
+            "Chất liệu: Bao bì cám",
+            "Kiểu dáng: Regular fit",
+            "Màu sắc: Trắng",
+            "Xuất xứ: Việt Nam"
+        ],
+        sizes: ["S", "M", "L", "XL", "XXL"]
     },
+
     {
         id: 7,
-        name: "Mũ lưỡi trai",
-        price: 120000,
-        image: "images/mu-luoi-trai.jpg",
+        name: "Mũ cối bộ đội",
+        price: 200000,
+        image: "images/mu-coi.jpg",
         category: "Phụ kiện",
-        description: "Mũ lưỡi trai unisex, nhiều màu sắc"
+        description: "Mũ cối chính hãng",
+        details: [
+            "Chất liệu: Cao cấp",
+            "Kiểu dáng: Regular fit",
+            "Màu sắc: Xanh lá",
+            "Xuất xứ: Việt Nam"
+        ],
+        sizes: ["S", "M", "L", "XL", "XXL"]
     }
 ];
 
@@ -374,11 +405,29 @@ function displayFilteredProducts(productsToDisplay) {
     if (productGrid) {
         productGrid.innerHTML = productsToDisplay.map(product => `
             <div class="product-card" onclick="handleProductClick(${product.id})">
-                <img src="${getProductImage(product)}" alt="${product.name}" onerror="this.src='images/default-product.png'">
-                <h3>${product.name}</h3>
-                <p class="price">${product.price.toLocaleString('vi-VN')} VNĐ</p>
-                <p class="description">${product.description}</p>
-                <button onclick="event.stopPropagation(); addToCart(${product.id})">Thêm vào giỏ</button>
+                <div class="product-image">
+                    <img src="${getProductImage(product)}" alt="${product.name}" onerror="this.src='images/default-product.png'">
+                </div>
+                <div class="product-info">
+                    <h3>${product.name}</h3>
+                    <p class="price">${product.price.toLocaleString('vi-VN')} VNĐ</p>
+                    <p class="description">${product.description}</p>
+                    ${product.details ? `
+                        <div class="product-details">
+                            <ul>
+                                ${product.details.map(detail => `<li>${detail}</li>`).join('')}
+                            </ul>
+                        </div>
+                    ` : ''}
+                    ${product.sizes ? `
+                        <div class="size-options">
+                            ${product.sizes.map(size => `
+                                <div class="size-option" onclick="event.stopPropagation(); selectSize(this)">${size}</div>
+                            `).join('')}
+                        </div>
+                    ` : ''}
+                    <button onclick="event.stopPropagation(); addToCart(${product.id})">Thêm vào giỏ</button>
+                </div>
             </div>
         `).join('');
     }
@@ -446,23 +495,38 @@ function displayProductDetails() {
         document.getElementById('productPrice').textContent = `${product.price.toLocaleString('vi-VN')} VNĐ`;
         document.getElementById('productDescription').textContent = product.description;
 
-        // Display thumbnails
+        // Display thumbnails if available
         const thumbnailsContainer = document.querySelector('.thumbnail-images');
-        thumbnailsContainer.innerHTML = product.images.map(img => `
-            <img src="${img}" alt="${product.name}" onclick="changeMainImage(this.src)">
-        `).join('');
+        if (thumbnailsContainer && product.images) {
+            thumbnailsContainer.innerHTML = product.images.map(img => `
+                <img src="${img}" alt="${product.name}" onclick="changeMainImage(this.src)">
+            `).join('');
+        }
 
-        // Display size options
+        // Display size options if available
         const sizeOptionsContainer = document.getElementById('sizeOptions');
-        sizeOptionsContainer.innerHTML = product.sizes.map(size => `
-            <div class="size-option" onclick="selectSize(this)">${size}</div>
-        `).join('');
+        if (sizeOptionsContainer && product.sizes) {
+            sizeOptionsContainer.innerHTML = product.sizes.map(size => `
+                <div class="size-option" onclick="selectSize(this)">${size}</div>
+            `).join('');
+        }
 
-        // Display product details
+        // Display product details if available
         const detailsContainer = document.getElementById('productDetails');
-        detailsContainer.innerHTML = product.details.map(detail => `
-            <li>${detail}</li>
-        `).join('');
+        if (detailsContainer && product.details) {
+            detailsContainer.innerHTML = `
+                <h3>Chi tiết sản phẩm</h3>
+                <ul>
+                    ${product.details.map(detail => `<li>${detail}</li>`).join('')}
+                </ul>
+            `;
+        }
+
+        // Add to cart button
+        const addToCartButton = document.querySelector('.add-to-cart');
+        if (addToCartButton) {
+            addToCartButton.onclick = () => addToCartFromDetail();
+        }
     }
 }
 
